@@ -6,15 +6,10 @@ import questions from '../../assets/questions';
 import './index.less';
 
 export default function QuCard() {
-    const [type, question, answer] = React.useState('');
-
-    const nextQuButton = (
-        <Button>下一题</Button>
-    )
-
-    const showAnButton = (
-        <Button>查看答案</Button>
-    )
+    const [type, setType] = React.useState("");
+    const [question, setQuestion] = React.useState("");
+    const [answer, setAnswer] = React.useState("");
+    const [isShowAnswer, setIsShowAnswer] = React.useState(false);
 
     /**
      * 更新状态值
@@ -22,15 +17,44 @@ export default function QuCard() {
     const upDateState = () => {
         // 获取问题数组的长度
         const length = questions.length;
-        // 根据数组的长度生成随机值
 
-        // 从数组中获取对应的问题对象
-
-        // 赋值给对应的state
+        switch (length) {
+            case 0:
+                setType("");
+                setQuestion("暂时没有数据！");
+                setAnswer("暂时没有数据！");
+                setIsShowAnswer(false);
+                break;
+            default:
+                // 根据数组的长度生成随机值
+                const num = Math.floor(Math.random() * length);
+                // 从数组中获取对应的问题对象
+                const questionObj = questions[num];
+                // 赋值给对应的state
+                setType(questionObj.type);
+                setQuestion(questionObj.question);
+                setAnswer(questionObj.answer);
+                setIsShowAnswer(false);
+        }
     }
 
+    /**
+     * 显示答案
+     */
+    const showAnswer = () => {
+        setIsShowAnswer(true);
+    }
+
+    const nextQuButton = (
+        <Button onClick={upDateState}>下一题</Button>
+    )
+
+    const showAnButton = (
+        <Button onClick={showAnswer}>查看答案</Button>
+    )
+
     React.useEffect(() => {
-        console.log(question.length);
+        upDateState();
     }, []);
 
     return (
@@ -40,12 +64,17 @@ export default function QuCard() {
             headStyle={{ textAlign: "center" }}
 
         >
-
             <Card
                 className="question"
                 title="问题"
                 extra={nextQuButton}
             >
+                {
+                    <div>
+                        <div>问题类型：{type}</div>
+                        <div>问题：{question}</div>
+                    </div>
+                }
             </Card>
 
             <Card
@@ -53,6 +82,7 @@ export default function QuCard() {
                 title="答案"
                 extra={showAnButton}
             >
+                {isShowAnswer ? answer : ""}
             </Card>
         </Card>
     )
