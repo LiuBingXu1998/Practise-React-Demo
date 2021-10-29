@@ -4,7 +4,7 @@ export default class App extends Component {
     render() {
         return (
             <div>
-                React 练习项目
+                React项目
             </div>
         )
     }
