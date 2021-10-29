@@ -9,7 +9,7 @@ module.exports = override(
     addLessLoader({
         javascriptEnabled: true,
         modifyVars: {
-            '@primary-color': '#1DA57A',   // 全局主色
+            '@primary-color': '#ffed00',   // 全局主色
             '@border-radius-base': '8px',  // 组件/浮层圆角
         },
     }),

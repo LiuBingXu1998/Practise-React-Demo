@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class App extends Component {
-    render() {
-        return (
-            <div>
-                React项目
-            </div>
-        )
-    }
+import QuCard from './components/QuCard';
+
+import './App.less';
+
+export default function App() {
+    return (
+        <div className="app">
+            <QuCard />
+        </div>
+    )
 }
